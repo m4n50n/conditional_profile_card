@@ -13,13 +13,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* -- PROFILE CARD -- */
-.cover-img,
-.cover-img img {
+.cover-img-container,
+#cover-img {
     min-height: 13em;
     max-height: 14em;
 }
 
-.cover-img img {
+#cover-img {
     object-fit: cover;
     object-position: center;
 }
@@ -49,10 +49,6 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #42d2cb;
 }
 
-#social-media-nav ul li {
-    cursor: pointer;
-}
-
-#social-media-nav ul li:hover {
+#social-media-nav ul li a:hover {
     background-color: #2fc5be;
 }
