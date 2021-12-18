@@ -2,20 +2,28 @@ const render = (variables = {}) => {
   console.log("These are the current variables: ", variables);
 
   // General
-  document.getElementById("name-profile").innerHTML = variables.name + " " + variables.lastname;
-  document.getElementById("role-profile").innerHTML = variables.role;
-  document.getElementById("city-profile").innerHTML = variables.city;
-  document.getElementById("country-profile").innerHTML = variables.country;
+  document.querySelector("#name-profile").innerHTML = variables.name;
+  document.querySelector("#role-profile").innerHTML = variables.role;
+
+  let direction = []
+  if (variables.city !== "") { direction.push(variables.city); }
+  if (variables.country !== "") { direction.push(variables.country.toUpperCase()); }
+
+  if (direction.lenght !== 0) {
+    document.querySelector("#direction-profile").innerHTML = direction.join(", ");
+  }
 
   // Cover Image
-  let cover_img = document.getElementById("cover-img");
-  (variables.includeCover) ? cover_img.style.display = "block" : cover_img.style.display = "none";
-
+  let cover_img = document.querySelector("#cover-img");
+  cover_img.src = `./assets/img/cover-${variables.coverimg}.jpg`;
+  
+  (variables.include_cover == "true") ? cover_img.style.display = "block" : cover_img.style.display = "none";
+  
   // Social Media Nav
-  let smnav = document.getElementById("social-media-nav");
+  let smnav = document.querySelector("#social-media-nav");
   smnav.classList.remove("order-first");
   smnav.classList.remove("order-last");
-  smnav.classList.add((variables.socialMediaPosition === "left") ? "order-first" : "order-last");
+  smnav.classList.add((variables.sm_position === "left") ? "order-first" : "order-last");
   
   let smlinks = {
     "twitter" : "https://twitter.com/",
@@ -25,10 +33,10 @@ const render = (variables = {}) => {
   }
 
   Object.keys(smlinks).forEach((value) => {
-    let link = document.getElementById(value + "-link");
+    let link = document.querySelector("#" + value + "-link");
     link.classList.remove("disabled");
 
-    if (variables[value] === null) {
+    if (variables[value] === "") {
       link.href = "#"; 
       link.classList.add("disabled");
     }
@@ -38,38 +46,38 @@ const render = (variables = {}) => {
   });
 }
 
+const empty_value = (element) => {
+  let prev_input = element.previousElementSibling;
+  prev_input.value = '';
+  prev_input.dispatchEvent(new Event("change")); // trigger change event
+}
+
 window.onload = function() {
   window.variables = {
-    includeCover: true,    
-    name: "Jose Clemente",
-    lastname: "García Rodríguez",
-    role: "Web Developer",
-    country: "Spain",
-    city: "Madrid",
-    socialMediaPosition: "right",
-    twitter: null,
-    github: "m4n50n",
-    linkedin: "josegarciarodriguez",
-    instagram: null,
+    include_cover: document.querySelector("#include_cover").value,
+    coverimg: Math.floor(Math.random() * 3) + 1,
+    sm_position: document.querySelector("#sm_position").value,
+    name: document.querySelector("#name").value,
+    role: document.querySelector("#role").value,
+    city: document.querySelector("#city").value,
+    country: document.querySelector("#country").value,
+    twitter: document.querySelector("#twitter").value,
+    github: document.querySelector("#github").value,
+    linkedin: document.querySelector("#linkedin").value,
+    instagram: document.querySelector("#instagram").value
   };
 
   render(window.variables);
 
-  /*
   document.querySelectorAll(".picker").forEach(function(elm) {
     elm.addEventListener("change", function(e) {
-      const attribute = e.target.getAttribute("for");
+      const attribute_id = e.target.getAttribute("id");
       let values = {};
-      values[attribute] =
-        this.value == "" || this.value == "null"
-          ? null
-          : this.value == "true"
-          ? true
-          : this.value == "false"
-          ? false
-          : this.value;
+
+      values[attribute_id] = (this.value == "" || this.value == null) ? "" : this.value;
+
+      console.log(values);
       render(Object.assign(window.variables, values));
     });
   });
-  */
 };

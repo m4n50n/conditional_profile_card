@@ -9,19 +9,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #form-title {
-    background-color: #e8e8e8;
+    pointer-events: none;
 }
 
 /* -- PROFILE CARD -- */
-.cover-img-container,
-#cover-img {
-    min-height: 13em;
-    max-height: 14em;
+.cover-img-container {
+    min-height: 13rem;
+    max-height: 13rem;
 }
 
 #cover-img {
     object-fit: cover;
     object-position: center;
+    min-height: inherit;
+    max-height: inherit;
 }
 
 .profile-img {
