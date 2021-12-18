@@ -1,6 +1,6 @@
 # ![4Geeks Logo](http://assets.breatheco.de/apis/img/images.php?blob&random&cat=icon&tags=4geeks,16) Conditional Profile Card
 
-✏ *Create the HTML code needed to render a profile card based on a series of variables that could change in value during runtime similar to **./preview.gif***.
+✏ *Create the complete HTML/CSS/JavaScript code needed to render a profile card based on a series of variables that could change in value during runtime similar to **./preview.gif***.
 
 ## What to do next?
 
